@@ -3,8 +3,7 @@ package com.ullink.slack.simpleslackapi.events;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum EventType
-{
+public enum EventType {
     MESSAGE("message"),
     CHANNEL_CREATED("channel_created"),
     CHANNEL_DELETED("channel_deleted"),
@@ -18,33 +17,27 @@ public enum EventType
 
     private static final Map<String, EventType> CODE_MAP = new HashMap<>();
 
-    static
-    {
-        for (EventType enumValue : EventType.values())
-        {
+    static {
+        for (EventType enumValue : EventType.values()) {
             CODE_MAP.put(enumValue.getCode(), enumValue);
         }
     }
 
-    private String                              code;
+    private String code;
 
-    public static EventType getByCode(String code)
-    {
+    public static EventType getByCode(String code) {
         EventType toReturn = CODE_MAP.get(code);
-        if (toReturn == null)
-        {
+        if (toReturn == null) {
             return OTHER;
         }
         return toReturn;
     }
 
-    EventType(String code)
-    {
+    EventType(String code) {
         this.code = code;
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 

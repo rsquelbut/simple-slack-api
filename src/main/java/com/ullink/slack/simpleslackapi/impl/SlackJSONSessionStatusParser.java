@@ -1,74 +1,67 @@
 package com.ullink.slack.simpleslackapi.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.ullink.slack.simpleslackapi.SlackChannel;
+import com.ullink.slack.simpleslackapi.SlackPersona;
+import com.ullink.slack.simpleslackapi.SlackTeam;
+import com.ullink.slack.simpleslackapi.SlackUser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.ullink.slack.simpleslackapi.SlackChannel;
-import com.ullink.slack.simpleslackapi.SlackPersona;
-import com.ullink.slack.simpleslackapi.SlackTeam;
-import com.ullink.slack.simpleslackapi.SlackUser;
 
-class SlackJSONSessionStatusParser
-{
-    private static final Logger       LOGGER   = LoggerFactory.getLogger(SlackJSONSessionStatusParser.class);
+import java.util.HashMap;
+import java.util.Map;
+
+class SlackJSONSessionStatusParser {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SlackJSONSessionStatusParser.class);
 
     private Map<String, SlackChannel> channels = new HashMap<>();
-    private Map<String, SlackUser>    users    = new HashMap<>();
+    private Map<String, SlackUser> users = new HashMap<>();
 
-    private SlackPersona              sessionPersona;
+    private SlackPersona sessionPersona;
 
-    private SlackTeam                 team;
+    private SlackTeam team;
 
-    private String                    webSocketURL;
+    private String webSocketURL;
 
-    private String                    toParse;
+    private String toParse;
 
-    private String                    error;
+    private String error;
 
-    SlackJSONSessionStatusParser(String toParse)
-    {
+    SlackJSONSessionStatusParser(String toParse) {
         this.toParse = toParse;
     }
 
-    Map<String, SlackChannel> getChannels()
-    {
+    Map<String, SlackChannel> getChannels() {
         return channels;
     }
 
-    Map<String, SlackUser> getUsers()
-    {
+    Map<String, SlackUser> getUsers() {
         return users;
     }
 
-    public String getWebSocketURL()
-    {
+    public String getWebSocketURL() {
         return webSocketURL;
     }
 
-    public String getError()
-    {
+    public String getError() {
         return error;
     }
-    
-    void parse() throws ParseException
-    {
+
+    void parse() throws ParseException {
         LOGGER.debug("parsing session status : " + toParse);
         JSONParser parser = new JSONParser();
         JSONObject jsonResponse = (JSONObject) parser.parse(toParse);
-        Boolean ok = (Boolean)jsonResponse.get("ok");
+        Boolean ok = (Boolean) jsonResponse.get("ok");
         if (Boolean.FALSE.equals(ok)) {
-            error = (String)jsonResponse.get("error");
+            error = (String) jsonResponse.get("error");
             return;
         }
         JSONArray usersJson = (JSONArray) jsonResponse.get("users");
 
-        for (Object jsonObject : usersJson)
-        {
+        for (Object jsonObject : usersJson) {
             JSONObject jsonUser = (JSONObject) jsonObject;
             SlackUser slackUser = SlackJSONParsingUtils.buildSlackUser(jsonUser);
             LOGGER.debug("slack user found : " + slackUser.getId());
@@ -77,8 +70,7 @@ class SlackJSONSessionStatusParser
 
         JSONArray botsJson = (JSONArray) jsonResponse.get("bots");
         if (botsJson != null) {
-            for (Object jsonObject : botsJson)
-            {
+            for (Object jsonObject : botsJson) {
                 JSONObject jsonBot = (JSONObject) jsonObject;
                 SlackUser slackUser = SlackJSONParsingUtils.buildSlackUser(jsonBot);
                 LOGGER.debug("slack bot found : " + slackUser.getId());
@@ -88,8 +80,7 @@ class SlackJSONSessionStatusParser
 
         JSONArray channelsJson = (JSONArray) jsonResponse.get("channels");
 
-        for (Object jsonObject : channelsJson)
-        {
+        for (Object jsonObject : channelsJson) {
             JSONObject jsonChannel = (JSONObject) jsonObject;
             SlackChannelImpl channel = SlackJSONParsingUtils.buildSlackChannel(jsonChannel, users);
             LOGGER.debug("slack public channel found : " + channel.getId());
@@ -98,8 +89,7 @@ class SlackJSONSessionStatusParser
 
         JSONArray groupsJson = (JSONArray) jsonResponse.get("groups");
 
-        for (Object jsonObject : groupsJson)
-        {
+        for (Object jsonObject : groupsJson) {
             JSONObject jsonChannel = (JSONObject) jsonObject;
             SlackChannelImpl channel = SlackJSONParsingUtils.buildSlackChannel(jsonChannel, users);
             LOGGER.debug("slack private group found : " + channel.getId());
@@ -108,8 +98,7 @@ class SlackJSONSessionStatusParser
 
         JSONArray imsJson = (JSONArray) jsonResponse.get("ims");
 
-        for (Object jsonObject : imsJson)
-        {
+        for (Object jsonObject : imsJson) {
             JSONObject jsonChannel = (JSONObject) jsonObject;
             SlackChannelImpl channel = SlackJSONParsingUtils.buildSlackImChannel(jsonChannel, users);
             LOGGER.debug("slack im channel found : " + channel.getId());
@@ -126,13 +115,11 @@ class SlackJSONSessionStatusParser
 
     }
 
-    public SlackPersona getSessionPersona()
-    {
+    public SlackPersona getSessionPersona() {
         return sessionPersona;
     }
 
-    public SlackTeam getTeam()
-    {
+    public SlackTeam getTeam() {
         return team;
     }
 }

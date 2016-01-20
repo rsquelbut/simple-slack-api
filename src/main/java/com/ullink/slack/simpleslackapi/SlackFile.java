@@ -1,8 +1,6 @@
 package com.ullink.slack.simpleslackapi;
 
 
-
-
 public class SlackFile {
 
     private String id;
@@ -19,14 +17,14 @@ public class SlackFile {
     private String thumb160;
     private String thumb360;
     private String thumb480;
-    private String thumb720; 
-    private Long imageExifRotation; 
+    private String thumb720;
+    private Long imageExifRotation;
     private Long originalW;
     private Long originalH;
     private String permalink;
     private String permalinkPublic;
     private String comment;
-    
+
     public SlackFile() {
         super();
     }
@@ -190,11 +188,11 @@ public class SlackFile {
     public void setPermalinkPublic(String permalinkPublic) {
         this.permalinkPublic = permalinkPublic;
     }
-    
+
     public String getComment() {
         return comment;
     }
-    
+
     public void setComment(String comment) {
         this.comment = comment;
     }

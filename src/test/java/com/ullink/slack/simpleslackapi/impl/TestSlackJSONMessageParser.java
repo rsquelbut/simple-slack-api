@@ -1,7 +1,10 @@
 package com.ullink.slack.simpleslackapi.impl;
 
-import java.io.IOException;
-import java.util.Map;
+import com.ullink.slack.simpleslackapi.*;
+import com.ullink.slack.simpleslackapi.events.*;
+import com.ullink.slack.simpleslackapi.replies.GenericSlackReply;
+import com.ullink.slack.simpleslackapi.replies.SlackChannelReply;
+import com.ullink.slack.simpleslackapi.replies.SlackReply;
 import org.assertj.core.api.Assertions;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,25 +12,9 @@ import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import com.ullink.slack.simpleslackapi.SlackAttachment;
-import com.ullink.slack.simpleslackapi.SlackChannel;
-import com.ullink.slack.simpleslackapi.SlackMessageHandle;
-import com.ullink.slack.simpleslackapi.SlackPersona;
-import com.ullink.slack.simpleslackapi.SlackSession;
-import com.ullink.slack.simpleslackapi.SlackUser;
-import com.ullink.slack.simpleslackapi.events.ReactionAdded;
-import com.ullink.slack.simpleslackapi.events.ReactionRemoved;
-import com.ullink.slack.simpleslackapi.events.SlackChannelArchived;
-import com.ullink.slack.simpleslackapi.events.SlackChannelCreated;
-import com.ullink.slack.simpleslackapi.events.SlackChannelDeleted;
-import com.ullink.slack.simpleslackapi.events.SlackChannelUnarchived;
-import com.ullink.slack.simpleslackapi.events.SlackEvent;
-import com.ullink.slack.simpleslackapi.events.SlackGroupJoined;
-import com.ullink.slack.simpleslackapi.events.SlackMessageDeleted;
-import com.ullink.slack.simpleslackapi.events.SlackMessagePosted;
-import com.ullink.slack.simpleslackapi.replies.GenericSlackReply;
-import com.ullink.slack.simpleslackapi.replies.SlackChannelReply;
-import com.ullink.slack.simpleslackapi.replies.SlackReply;
+
+import java.io.IOException;
+import java.util.Map;
 
 public class TestSlackJSONMessageParser {
 
@@ -53,7 +40,7 @@ public class TestSlackJSONMessageParser {
     @Before
     public void setup() {
         session = new AbstractSlackSessionImpl() {
-            
+
             @Override
             public void connect() {
                 SlackUser user1 = new SlackUserImpl("TESTUSER1", "test user 1", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
@@ -118,20 +105,17 @@ public class TestSlackJSONMessageParser {
             }
 
             @Override
-            public SlackMessageHandle<SlackChannelReply> openDirectMessageChannel(SlackUser user)
-            {
+            public SlackMessageHandle<SlackChannelReply> openDirectMessageChannel(SlackUser user) {
                 return null;
             }
 
             @Override
-            public SlackMessageHandle<SlackChannelReply> openMultipartyDirectMessageChannel(SlackUser... users)
-            {
+            public SlackMessageHandle<SlackChannelReply> openMultipartyDirectMessageChannel(SlackUser... users) {
                 return null;
             }
 
             @Override
-            public SlackMessageHandle inviteUser(String email, String firstName, boolean setActive) 
-            {
+            public SlackMessageHandle inviteUser(String email, String firstName, boolean setActive) {
                 return null;
             }
 
@@ -142,7 +126,7 @@ public class TestSlackJSONMessageParser {
 
             @Override
             public SlackMessageHandle<SlackChannelReply> inviteToChannel(SlackChannel channel, SlackUser user) {
-              return null;
+                return null;
             }
 
             @Override
@@ -156,14 +140,12 @@ public class TestSlackJSONMessageParser {
             }
 
             @Override
-            public SlackMessageHandle<GenericSlackReply> postGenericSlackCommand(Map<String, String> params, String command)
-            {
+            public SlackMessageHandle<GenericSlackReply> postGenericSlackCommand(Map<String, String> params, String command) {
                 return null;
             }
 
             @Override
-            public SlackMessageHandle<SlackReply> archiveChannel(SlackChannel channel)
-            {
+            public SlackMessageHandle<SlackReply> archiveChannel(SlackChannel channel) {
                 return null;
             }
 

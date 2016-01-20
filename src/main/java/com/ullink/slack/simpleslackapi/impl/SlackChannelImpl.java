@@ -1,23 +1,22 @@
 package com.ullink.slack.simpleslackapi.impl;
 
+import com.ullink.slack.simpleslackapi.SlackChannel;
+import com.ullink.slack.simpleslackapi.SlackUser;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import com.ullink.slack.simpleslackapi.SlackChannel;
-import com.ullink.slack.simpleslackapi.SlackUser;
 
-class SlackChannelImpl implements SlackChannel
-{
+class SlackChannelImpl implements SlackChannel {
     private final boolean direct;
-    private String         id;
-    private String         name;
+    private String id;
+    private String name;
     private Set<SlackUser> members = new HashSet<>();
-    private String         topic;
-    private String         purpose;
+    private String topic;
+    private String purpose;
 
-    SlackChannelImpl(String id, String name, String topic, String purpose, boolean direct)
-    {
+    SlackChannelImpl(String id, String name, String topic, String purpose, boolean direct) {
         this.id = id;
         this.name = name;
         this.topic = topic;
@@ -25,37 +24,31 @@ class SlackChannelImpl implements SlackChannel
         this.direct = direct;
     }
 
-    void addUser(SlackUser user)
-    {
+    void addUser(SlackUser user) {
         members.add(user);
     }
 
-    void removeUser(SlackUser user)
-    {
+    void removeUser(SlackUser user) {
         members.remove(user);
     }
 
     @Override
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     @Override
-    public Collection<SlackUser> getMembers()
-    {
+    public Collection<SlackUser> getMembers() {
         return new ArrayList<>(members);
     }
 
     @Override
-    public String getTopic()
-    {
+    public String getTopic() {
         return topic;
     }
 
@@ -70,8 +63,7 @@ class SlackChannelImpl implements SlackChannel
     }
 
     @Override
-    public String getPurpose()
-    {
+    public String getPurpose() {
         return purpose;
     }
 

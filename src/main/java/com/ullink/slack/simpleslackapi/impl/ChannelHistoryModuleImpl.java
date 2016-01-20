@@ -1,15 +1,5 @@
 package com.ullink.slack.simpleslackapi.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.ZonedDateTime;
-import org.threeten.bp.temporal.ChronoUnit;
 import com.ullink.slack.simpleslackapi.ChannelHistoryModule;
 import com.ullink.slack.simpleslackapi.SlackMessageHandle;
 import com.ullink.slack.simpleslackapi.SlackSession;
@@ -20,6 +10,17 @@ import com.ullink.slack.simpleslackapi.listeners.ReactionAddedListener;
 import com.ullink.slack.simpleslackapi.listeners.ReactionRemovedListener;
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener;
 import com.ullink.slack.simpleslackapi.replies.GenericSlackReply;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.temporal.ChronoUnit;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChannelHistoryModuleImpl implements ChannelHistoryModule {
 
@@ -125,7 +126,9 @@ public class ChannelHistoryModuleImpl implements ChannelHistoryModule {
                 message.getReactions().put(emojiName, 1);
             }
         }
-    };
+    }
+
+    ;
 
     public class ChannelHistoryReactionRemovedListener implements ReactionRemovedListener {
 
@@ -152,7 +155,9 @@ public class ChannelHistoryModuleImpl implements ChannelHistoryModule {
                 }
             }
         }
-    };
+    }
+
+    ;
 
     public class ChannelHistoryMessagePostedListener implements SlackMessagePostedListener {
 

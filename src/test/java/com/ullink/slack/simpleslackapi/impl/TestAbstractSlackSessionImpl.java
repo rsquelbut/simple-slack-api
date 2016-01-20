@@ -1,62 +1,51 @@
 package com.ullink.slack.simpleslackapi.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Test;
-import com.ullink.slack.simpleslackapi.SlackAttachment;
-import com.ullink.slack.simpleslackapi.SlackChannel;
-import com.ullink.slack.simpleslackapi.SlackMessageHandle;
-import com.ullink.slack.simpleslackapi.SlackPersona;
-import com.ullink.slack.simpleslackapi.SlackSession;
-import com.ullink.slack.simpleslackapi.SlackUser;
+import com.ullink.slack.simpleslackapi.*;
 import com.ullink.slack.simpleslackapi.events.SlackConnected;
 import com.ullink.slack.simpleslackapi.listeners.SlackConnectedListener;
 import com.ullink.slack.simpleslackapi.replies.GenericSlackReply;
 import com.ullink.slack.simpleslackapi.replies.SlackChannelReply;
 import com.ullink.slack.simpleslackapi.replies.SlackReply;
+import org.junit.Test;
 
-public class TestAbstractSlackSessionImpl
-{
+import static org.assertj.core.api.Assertions.assertThat;
 
-    private class TestSlackSessionImpl extends AbstractSlackSessionImpl
-    {
+public class TestAbstractSlackSessionImpl {
+
+    private class TestSlackSessionImpl extends AbstractSlackSessionImpl {
 
         @Override
-        public void connect()
-        {
-            channels.put("channelid1",new SlackChannelImpl("channelid1", "testchannel1", "topicchannel1", "topicchannel1", false));
-            channels.put("channelid2",new SlackChannelImpl("channelid2", "testchannel2", "topicchannel2", "topicchannel2", false));
-            channels.put("channelid3",new SlackChannelImpl("channelid3", "testchannel3", "topicchannel3", "topicchannel3", false));
-            channels.put("channelid4",new SlackChannelImpl("channelid4", "testchannel4", "topicchannel4", "topicchannel4", false));
-            channels.put("channelid5",new SlackChannelImpl("channelid5", "testchannel5", "topicchannel5", "topicchannel5", false));
+        public void connect() {
+            channels.put("channelid1", new SlackChannelImpl("channelid1", "testchannel1", "topicchannel1", "topicchannel1", false));
+            channels.put("channelid2", new SlackChannelImpl("channelid2", "testchannel2", "topicchannel2", "topicchannel2", false));
+            channels.put("channelid3", new SlackChannelImpl("channelid3", "testchannel3", "topicchannel3", "topicchannel3", false));
+            channels.put("channelid4", new SlackChannelImpl("channelid4", "testchannel4", "topicchannel4", "topicchannel4", false));
+            channels.put("channelid5", new SlackChannelImpl("channelid5", "testchannel5", "topicchannel5", "topicchannel5", false));
 
-            users.put("userid1",new SlackUserImpl("userid1", "username1", "realname1","userid1@my.mail", false,false,false,false,false,false, false,"tz","tzLabel",new Integer(0)));
-            users.put("userid2",new SlackUserImpl("userid2", "username2", "realname2","userid2@my.mail", false,false,false,false,false,false, false,"tz","tzLabel",new Integer(0)));
-            users.put("userid3",new SlackUserImpl("userid3", "username3", "realname3","userid3@my.mail", true,false,false,false,false,false, false,"tz","tzLabel",new Integer(0)));
-            users.put("userid4",new SlackUserImpl("userid4", "username4", "realname4","userid4@my.mail", false,false,false,false,false,false, false,"tz","tzLabel",new Integer(0)));
-            users.put("userid5",new SlackUserImpl("userid5", "username5", "realname4","userid5@my.mail", true,false,false,false,false,false, false,"tz","tzLabel",new Integer(0)));
+            users.put("userid1", new SlackUserImpl("userid1", "username1", "realname1", "userid1@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid2", new SlackUserImpl("userid2", "username2", "realname2", "userid2@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid3", new SlackUserImpl("userid3", "username3", "realname3", "userid3@my.mail", true, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid4", new SlackUserImpl("userid4", "username4", "realname4", "userid4@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid5", new SlackUserImpl("userid5", "username5", "realname4", "userid5@my.mail", true, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
 
-            users.put("botid1",new SlackUserImpl("botid1", "botname1", "real bot name 1", null,false,false,false,false,false,false,true,"tz","tzLabel",new Integer(0)));
-            users.put("botid2",new SlackUserImpl("botid2", "botname2", "real bot name 2", null,false,false,false,false,false,false,true,"tz","tzLabel",new Integer(0)));
-            users.put("botid3",new SlackUserImpl("botid3", "botname3", "real bot name 3", null, true,false,false,false,false,false,true,"tz","tzLabel",new Integer(0)));
-            
-            
+            users.put("botid1", new SlackUserImpl("botid1", "botname1", "real bot name 1", null, false, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
+            users.put("botid2", new SlackUserImpl("botid2", "botname2", "real bot name 2", null, false, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
+            users.put("botid3", new SlackUserImpl("botid3", "botname3", "real bot name 3", null, true, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
+
 
         }
 
         @Override
-        public void disconnect()
-        {
+        public void disconnect() {
         }
 
         @Override
-        public SlackMessageHandle sendMessage(SlackChannel channel, String message, SlackAttachment attachment, SlackChatConfiguration chatConfiguration, boolean unfurl)
-        {
+        public SlackMessageHandle sendMessage(SlackChannel channel, String message, SlackAttachment attachment, SlackChatConfiguration chatConfiguration, boolean unfurl) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle sendMessageOverWebSocket(SlackChannel channel, String message, SlackAttachment attachment)
-        {
+        public SlackMessageHandle sendMessageOverWebSocket(SlackChannel channel, String message, SlackAttachment attachment) {
             return null;
         }
 
@@ -66,57 +55,48 @@ public class TestAbstractSlackSessionImpl
         }
 
         @Override
-        public SlackMessageHandle deleteMessage(String timeStamp, SlackChannel channel)
-        {
+        public SlackMessageHandle deleteMessage(String timeStamp, SlackChannel channel) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle updateMessage(String timeStamp, SlackChannel channel, String message)
-        {
+        public SlackMessageHandle updateMessage(String timeStamp, SlackChannel channel, String message) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle addReactionToMessage(SlackChannel channel, String messageTimeStamp, String emojiCode)
-        {
+        public SlackMessageHandle addReactionToMessage(SlackChannel channel, String messageTimeStamp, String emojiCode) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle joinChannel(String channelName)
-        {
+        public SlackMessageHandle joinChannel(String channelName) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle leaveChannel(SlackChannel channel)
-        {
+        public SlackMessageHandle leaveChannel(SlackChannel channel) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle<SlackChannelReply> openDirectMessageChannel(SlackUser user)
-        {
+        public SlackMessageHandle<SlackChannelReply> openDirectMessageChannel(SlackUser user) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle<SlackChannelReply> openMultipartyDirectMessageChannel(SlackUser... users)
-        {
+        public SlackMessageHandle<SlackChannelReply> openMultipartyDirectMessageChannel(SlackUser... users) {
             return null;
         }
 
         @Override
-        public SlackMessageHandle inviteUser(String email, String firstName, boolean setActive) 
-        {
+        public SlackMessageHandle inviteUser(String email, String firstName, boolean setActive) {
             return null;
         }
 
         // Helper method with access to abstract class properties.
-        public boolean isListening(SlackConnectedListener expectedListener) 
-        {
-          return slackConnectedListener.contains(expectedListener);
+        public boolean isListening(SlackConnectedListener expectedListener) {
+            return slackConnectedListener.contains(expectedListener);
         }
 
         @Override
@@ -126,17 +106,16 @@ public class TestAbstractSlackSessionImpl
 
         @Override
         public SlackMessageHandle<SlackChannelReply> inviteToChannel(SlackChannel channel, SlackUser user) {
-          return null;
+            return null;
         }
 
         @Override
-        public SlackMessageHandle<SlackReply> archiveChannel(SlackChannel channel) 
-        {
-          return null;
+        public SlackMessageHandle<SlackReply> archiveChannel(SlackChannel channel) {
+            return null;
         }
-        
+
         @Override
-        public SlackMessageHandle<GenericSlackReply> postGenericSlackCommand(java.util.Map<String,String> params, String command) {
+        public SlackMessageHandle<GenericSlackReply> postGenericSlackCommand(java.util.Map<String, String> params, String command) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
@@ -152,8 +131,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindChannelByName_ExistingChannel()
-    {
+    public void testFindChannelByName_ExistingChannel() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -163,8 +141,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindChannelByName_MissingChannel()
-    {
+    public void testFindChannelByName_MissingChannel() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -173,8 +150,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindChannelById_ExistingChannel()
-    {
+    public void testFindChannelById_ExistingChannel() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -184,8 +160,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindChannelById_MissingChannel()
-    {
+    public void testFindChannelById_MissingChannel() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -194,8 +169,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindBotById_ExistingBot()
-    {
+    public void testFindBotById_ExistingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -205,8 +179,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindBotById_MissingBot()
-    {
+    public void testFindBotById_MissingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -215,8 +188,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindUserById_ExistingBot()
-    {
+    public void testFindUserById_ExistingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -226,8 +198,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindUserById_MissingBot()
-    {
+    public void testFindUserById_MissingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -236,8 +207,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindUserByUserName_ExistingBot()
-    {
+    public void testFindUserByUserName_ExistingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -247,8 +217,7 @@ public class TestAbstractSlackSessionImpl
     }
 
     @Test
-    public void testFindUserByUserName_MissingBot()
-    {
+    public void testFindUserByUserName_MissingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
         slackSession.connect();
@@ -259,9 +228,9 @@ public class TestAbstractSlackSessionImpl
     @Test
     public void testAddConnectedListener() {
         SlackConnectedListener listener = new SlackConnectedListener() {
-          @Override
-          public void onEvent(SlackConnected event, SlackSession session) {
-          }
+            @Override
+            public void onEvent(SlackConnected event, SlackSession session) {
+            }
         };
 
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
@@ -273,9 +242,9 @@ public class TestAbstractSlackSessionImpl
     @Test
     public void testRemoveConnectedListener() {
         SlackConnectedListener listener = new SlackConnectedListener() {
-          @Override
-          public void onEvent(SlackConnected event, SlackSession session) {
-          }
+            @Override
+            public void onEvent(SlackConnected event, SlackSession session) {
+            }
         };
 
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();

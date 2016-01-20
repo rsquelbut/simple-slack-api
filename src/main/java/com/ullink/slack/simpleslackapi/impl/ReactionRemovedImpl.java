@@ -4,7 +4,7 @@ import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.events.ReactionRemoved;
 import com.ullink.slack.simpleslackapi.events.SlackEventType;
 
-public class ReactionRemovedImpl implements ReactionRemoved{
+public class ReactionRemovedImpl implements ReactionRemoved {
     private final String emojiName;
     private final String messageID;
     private final SlackChannel channel;

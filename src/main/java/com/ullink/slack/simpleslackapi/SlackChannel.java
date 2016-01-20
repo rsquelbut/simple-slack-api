@@ -2,8 +2,7 @@ package com.ullink.slack.simpleslackapi;
 
 import java.util.Collection;
 
-public interface SlackChannel
-{
+public interface SlackChannel {
     String getId();
 
     String getName();

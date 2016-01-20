@@ -1,14 +1,14 @@
 package com.ullink.slack.simpleslackapi.events;
 
-import java.util.Map;
-import org.json.simple.JSONObject;
 import com.ullink.slack.simpleslackapi.SlackBot;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackFile;
 import com.ullink.slack.simpleslackapi.SlackUser;
+import org.json.simple.JSONObject;
 
-public interface SlackMessagePosted extends SlackMessageEvent
-{
+import java.util.Map;
+
+public interface SlackMessagePosted extends SlackMessageEvent {
     String getMessageContent();
 
     SlackUser getSender();
@@ -17,15 +17,15 @@ public interface SlackMessagePosted extends SlackMessageEvent
     SlackBot getBot();
 
     SlackChannel getChannel();
-    
+
     SlackFile getSlackFile();
-    
+
     JSONObject getJsonSource();
-    
+
     String getTimestamp();
-    
+
     Map<String, Integer> getReactions();
-    
+
     int getTotalCountOfReactions();
 
 }

@@ -1,36 +1,34 @@
 package com.ullink.slack.simpleslackapi.impl;
 
-import java.util.Map;
-import org.json.simple.JSONObject;
 import com.ullink.slack.simpleslackapi.SlackBot;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackFile;
 import com.ullink.slack.simpleslackapi.SlackUser;
 import com.ullink.slack.simpleslackapi.events.SlackEventType;
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted;
+import org.json.simple.JSONObject;
 
-class SlackMessagePostedImpl implements SlackMessagePosted
-{
-    private String       messageContent;
-    private SlackUser    user;
-    private SlackBot     bot;
+import java.util.Map;
+
+class SlackMessagePostedImpl implements SlackMessagePosted {
+    private String messageContent;
+    private SlackUser user;
+    private SlackBot bot;
     private SlackChannel channel;
-    private String       timestamp;
-    private SlackFile    slackFile;
-    private JSONObject   jsonSource;
+    private String timestamp;
+    private SlackFile slackFile;
+    private JSONObject jsonSource;
     private Map<String, Integer> reactions;
-    
-    SlackMessagePostedImpl(String messageContent, SlackBot bot, SlackUser user, SlackChannel channel, String timestamp)
-    {
+
+    SlackMessagePostedImpl(String messageContent, SlackBot bot, SlackUser user, SlackChannel channel, String timestamp) {
         this.channel = channel;
         this.messageContent = messageContent;
         this.user = user;
         this.bot = bot;
         this.timestamp = timestamp;
     }
-    
-    SlackMessagePostedImpl(String messageContent, SlackBot bot, SlackUser user, SlackChannel channel, String timestamp, JSONObject jsonSource)
-    {
+
+    SlackMessagePostedImpl(String messageContent, SlackBot bot, SlackUser user, SlackChannel channel, String timestamp, JSONObject jsonSource) {
         this.channel = channel;
         this.messageContent = messageContent;
         this.user = user;
@@ -38,9 +36,8 @@ class SlackMessagePostedImpl implements SlackMessagePosted
         this.timestamp = timestamp;
         this.jsonSource = jsonSource;
     }
-    
-    SlackMessagePostedImpl(String messageContent, SlackBot bot, SlackUser user, SlackChannel channel, String timestamp, SlackFile slackFile, JSONObject jsonSource)
-    {
+
+    SlackMessagePostedImpl(String messageContent, SlackBot bot, SlackUser user, SlackChannel channel, String timestamp, SlackFile slackFile, JSONObject jsonSource) {
         this.channel = channel;
         this.messageContent = messageContent;
         this.user = user;
@@ -64,7 +61,7 @@ class SlackMessagePostedImpl implements SlackMessagePosted
     public SlackFile getSlackFile() {
         return slackFile;
     }
-    
+
 
     @Override
     public String getMessageContent() {
