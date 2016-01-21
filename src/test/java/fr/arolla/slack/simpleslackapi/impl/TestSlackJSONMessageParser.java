@@ -43,12 +43,12 @@ public class TestSlackJSONMessageParser {
 
             @Override
             public void connect() {
-                SlackUser user1 = new SlackUserImpl("TESTUSER1", "test user 1", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
-                SlackUser user2 = new SlackUserImpl("TESTUSER2", "test user 2", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
-                SlackUser user3 = new SlackUserImpl("TESTUSER3", "test user 3", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
-                users.put(user1.getId(), user1);
-                users.put(user2.getId(), user2);
-                users.put(user3.getId(), user3);
+                SlackUser user1 = new SlackUserImpl(SlackID.from("TESTUSER1"), "test user 1", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
+                SlackUser user2 = new SlackUserImpl(SlackID.from("TESTUSER2"), "test user 2", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
+                SlackUser user3 = new SlackUserImpl(SlackID.from("TESTUSER3"), "test user 3", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
+                users.put(user1.getId().getValue(), user1);
+                users.put(user2.getId().getValue(), user2);
+                users.put(user3.getId().getValue(), user3);
 
                 SlackChannel channel1 = new SlackChannelImpl("TESTCHANNEL1", "testchannel1", null, null, false);
                 SlackChannel channel2 = new SlackChannelImpl("TESTCHANNEL2", "testchannel2", null, null, false);
@@ -164,7 +164,7 @@ public class TestSlackJSONMessageParser {
         SlackEvent event = SlackJSONMessageParser.decode(session, object);
         Assertions.assertThat(event).isInstanceOf(SlackMessagePosted.class);
         SlackMessagePosted slackMessage = (SlackMessagePosted) event;
-        Assertions.assertThat(slackMessage.getSender().getId()).isEqualTo("TESTUSER1");
+        Assertions.assertThat(slackMessage.getSender().getId()).isEqualTo(SlackID.from("TESTUSER1"));
         Assertions.assertThat(slackMessage.getChannel().getId()).isEqualTo("TESTCHANNEL1");
         Assertions.assertThat(slackMessage.getMessageContent()).isEqualTo("Test text 1");
         Assertions.assertThat(slackMessage.getTimeStamp()).isEqualTo("1413187521.000004");
@@ -202,7 +202,7 @@ public class TestSlackJSONMessageParser {
         SlackEvent event = SlackJSONMessageParser.decode(session, object);
         Assertions.assertThat(event).isInstanceOf(SlackChannelCreated.class);
         SlackChannelCreated slackChannelCreated = (SlackChannelCreated) event;
-        Assertions.assertThat(slackChannelCreated.getCreator().getId()).isEqualTo("TESTUSER1");
+        Assertions.assertThat(slackChannelCreated.getCreator().getId()).isEqualTo(SlackID.from("TESTUSER1"));
         Assertions.assertThat(slackChannelCreated.getSlackChannel().getName()).isEqualTo("new channel");
         Assertions.assertThat(slackChannelCreated.getSlackChannel().getId()).isEqualTo("NEWCHANNEL");
         Assertions.assertThat(slackChannelCreated.getSlackChannel().getTopic()).isEqualTo("Catz Wid Hatz");
@@ -227,7 +227,7 @@ public class TestSlackJSONMessageParser {
         Assertions.assertThat(event).isInstanceOf(SlackChannelArchived.class);
         SlackChannelArchived slackChannelArchived = (SlackChannelArchived) event;
         Assertions.assertThat(slackChannelArchived.getSlackChannel().getId()).isEqualTo("TESTCHANNEL1");
-        Assertions.assertThat(slackChannelArchived.getUser().getId()).isEqualTo("TESTUSER1");
+        Assertions.assertThat(slackChannelArchived.getUser().getId()).isEqualTo(SlackID.from("TESTUSER1"));
     }
 
     @Test
@@ -238,7 +238,7 @@ public class TestSlackJSONMessageParser {
         Assertions.assertThat(event).isInstanceOf(SlackChannelUnarchived.class);
         SlackChannelUnarchived slackChannelUnarchived = (SlackChannelUnarchived) event;
         Assertions.assertThat(slackChannelUnarchived.getSlackChannel().getId()).isEqualTo("TESTCHANNEL1");
-        Assertions.assertThat(slackChannelUnarchived.getUser().getId()).isEqualTo("TESTUSER1");
+        Assertions.assertThat(slackChannelUnarchived.getUser().getId()).isEqualTo(SlackID.from("TESTUSER1"));
     }
 
     @Test

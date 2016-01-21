@@ -22,15 +22,15 @@ public class TestAbstractSlackSessionImpl {
             channels.put("channelid4", new SlackChannelImpl("channelid4", "testchannel4", "topicchannel4", "topicchannel4", false));
             channels.put("channelid5", new SlackChannelImpl("channelid5", "testchannel5", "topicchannel5", "topicchannel5", false));
 
-            users.put("userid1", new SlackUserImpl("userid1", "username1", "realname1", "userid1@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
-            users.put("userid2", new SlackUserImpl("userid2", "username2", "realname2", "userid2@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
-            users.put("userid3", new SlackUserImpl("userid3", "username3", "realname3", "userid3@my.mail", true, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
-            users.put("userid4", new SlackUserImpl("userid4", "username4", "realname4", "userid4@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
-            users.put("userid5", new SlackUserImpl("userid5", "username5", "realname4", "userid5@my.mail", true, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid1", new SlackUserImpl(SlackID.from("userid1"), "username1", "realname1", "userid1@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid2", new SlackUserImpl(SlackID.from("userid2"), "username2", "realname2", "userid2@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid3", new SlackUserImpl(SlackID.from("userid3"), "username3", "realname3", "userid3@my.mail", true, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid4", new SlackUserImpl(SlackID.from("userid4"), "username4", "realname4", "userid4@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
+            users.put("userid5", new SlackUserImpl(SlackID.from("userid5"), "username5", "realname4", "userid5@my.mail", true, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
 
-            users.put("botid1", new SlackUserImpl("botid1", "botname1", "real bot name 1", null, false, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
-            users.put("botid2", new SlackUserImpl("botid2", "botname2", "real bot name 2", null, false, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
-            users.put("botid3", new SlackUserImpl("botid3", "botname3", "real bot name 3", null, true, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
+            users.put("botid1", new SlackUserImpl(SlackID.from("botid1"), "botname1", "real bot name 1", null, false, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
+            users.put("botid2", new SlackUserImpl(SlackID.from("botid2"), "botname2", "real bot name 2", null, false, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
+            users.put("botid3", new SlackUserImpl(SlackID.from("botid3"), "botname3", "real bot name 3", null, true, false, false, false, false, false, true, "tz", "tzLabel", new Integer(0)));
 
 
         }
@@ -185,7 +185,7 @@ public class TestAbstractSlackSessionImpl {
         slackSession.connect();
 
         assertThat(slackSession.findUserByUserName("username1")).isNotNull();
-        assertThat(slackSession.findUserByUserName("username1").getId()).isEqualTo("userid1");
+        assertThat(slackSession.findUserByUserName("username1").getId()).isEqualTo(SlackID.from("userid1"));
     }
 
     @Test

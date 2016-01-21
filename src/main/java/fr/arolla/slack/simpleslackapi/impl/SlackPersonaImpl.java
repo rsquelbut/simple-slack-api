@@ -1,9 +1,10 @@
 package fr.arolla.slack.simpleslackapi.impl;
 
+import fr.arolla.slack.simpleslackapi.SlackID;
 import fr.arolla.slack.simpleslackapi.SlackPersona;
 
 class SlackPersonaImpl implements SlackPersona {
-    final String id;
+    final SlackID id;
     final String userName;
     final String realName;
     final String userMail;
@@ -18,7 +19,7 @@ class SlackPersonaImpl implements SlackPersona {
     final String timeZoneLabel;
     final Integer timeZoneOffset;
 
-    SlackPersonaImpl(String id, String userName, String realName, String userMail, boolean deleted, boolean admin, boolean owner, boolean primaryOwner, boolean restricted, boolean ultraRestricted, boolean bot, String timeZone, String timeZoneLabel, Integer timeZoneOffset) {
+    SlackPersonaImpl(SlackID id, String userName, String realName, String userMail, boolean deleted, boolean admin, boolean owner, boolean primaryOwner, boolean restricted, boolean ultraRestricted, boolean bot, String timeZone, String timeZoneLabel, Integer timeZoneOffset) {
         this.id = id;
         this.userName = userName;
         this.realName = realName;
@@ -36,7 +37,7 @@ class SlackPersonaImpl implements SlackPersona {
     }
 
     @Override
-    public String getId() {
+    public SlackID getId() {
         return id;
     }
 

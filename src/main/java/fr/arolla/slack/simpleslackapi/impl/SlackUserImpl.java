@@ -1,5 +1,6 @@
 package fr.arolla.slack.simpleslackapi.impl;
 
+import fr.arolla.slack.simpleslackapi.SlackID;
 import fr.arolla.slack.simpleslackapi.SlackUser;
 
 class SlackUserImpl extends SlackPersonaImpl implements SlackUser {
@@ -12,7 +13,7 @@ class SlackUserImpl extends SlackPersonaImpl implements SlackUser {
                 + timeZoneOffset + "}";
     }
 
-    SlackUserImpl(String id, String userName, String realName, String userMail, boolean deleted, boolean admin, boolean owner, boolean primaryOwner, boolean restricted, boolean ultraRestricted, boolean bot, String timeZone,
+    SlackUserImpl(SlackID id, String userName, String realName, String userMail, boolean deleted, boolean admin, boolean owner, boolean primaryOwner, boolean restricted, boolean ultraRestricted, boolean bot, String timeZone,
                   String timeZoneLabel, Integer timeZoneOffset) {
         super(id, userName, realName, userMail, deleted, admin, owner, primaryOwner, restricted, ultraRestricted, bot, timeZone, timeZoneLabel, timeZoneOffset);
     }

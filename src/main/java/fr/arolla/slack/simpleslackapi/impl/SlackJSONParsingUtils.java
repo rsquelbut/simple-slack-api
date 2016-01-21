@@ -1,5 +1,6 @@
 package fr.arolla.slack.simpleslackapi.impl;
 
+import fr.arolla.slack.simpleslackapi.SlackID;
 import fr.arolla.slack.simpleslackapi.SlackTeam;
 import fr.arolla.slack.simpleslackapi.SlackUser;
 import org.json.simple.JSONArray;
@@ -14,7 +15,7 @@ class SlackJSONParsingUtils {
     }
 
     static final SlackUser buildSlackUser(JSONObject jsonUser) {
-        String id = (String) jsonUser.get("id");
+        SlackID id = SlackID.from((String) jsonUser.get("id"));
         String name = (String) jsonUser.get("name");
         String realName = (String) jsonUser.get("real_name");
         String tz = (String) jsonUser.get("tz");

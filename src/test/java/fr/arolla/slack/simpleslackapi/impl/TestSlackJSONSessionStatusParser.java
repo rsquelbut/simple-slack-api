@@ -1,5 +1,6 @@
 package fr.arolla.slack.simpleslackapi.impl;
 
+import fr.arolla.slack.simpleslackapi.SlackID;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ public class TestSlackJSONSessionStatusParser {
         assertThat(parser.getUsers().get("USERID1").getTimeZoneLabel()).isEqualTo("Central European Summer Time");
         assertThat(parser.getUsers().get("USERID1").getTimeZoneOffset()).isEqualTo(7200);
 
-        assertThat(parser.getSessionPersona().getId()).isEqualTo("SELF");
+        assertThat(parser.getSessionPersona().getId()).isEqualTo(SlackID.from("SELF"));
         assertThat(parser.getSessionPersona().getUserName()).isEqualTo("myself");
 
         assertThat(parser.getTeam().getId()).isEqualTo("TEAM");

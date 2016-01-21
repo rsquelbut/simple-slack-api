@@ -3,7 +3,7 @@ package fr.arolla.slack.simpleslackapi;
 public interface SlackPersona {
     public enum SlackPresence {UNKNOWN, ACTIVE, AWAY, AUTO}
 
-    String getId();
+    SlackID getId();
 
     String getUserName();
 
