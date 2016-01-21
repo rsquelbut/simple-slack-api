@@ -16,11 +16,11 @@ public class TestAbstractSlackSessionImpl {
 
         @Override
         public void connect() {
-            channels.put("channelid1", new SlackChannelImpl("channelid1", "testchannel1", "topicchannel1", "topicchannel1", false));
-            channels.put("channelid2", new SlackChannelImpl("channelid2", "testchannel2", "topicchannel2", "topicchannel2", false));
-            channels.put("channelid3", new SlackChannelImpl("channelid3", "testchannel3", "topicchannel3", "topicchannel3", false));
-            channels.put("channelid4", new SlackChannelImpl("channelid4", "testchannel4", "topicchannel4", "topicchannel4", false));
-            channels.put("channelid5", new SlackChannelImpl("channelid5", "testchannel5", "topicchannel5", "topicchannel5", false));
+            channels.put("channelid1", new SlackChannelImpl(SlackID.from("channelid1"), "testchannel1", "topicchannel1", "topicchannel1", false));
+            channels.put("channelid2", new SlackChannelImpl(SlackID.from("channelid2"), "testchannel2", "topicchannel2", "topicchannel2", false));
+            channels.put("channelid3", new SlackChannelImpl(SlackID.from("channelid3"), "testchannel3", "topicchannel3", "topicchannel3", false));
+            channels.put("channelid4", new SlackChannelImpl(SlackID.from("channelid4"), "testchannel4", "topicchannel4", "topicchannel4", false));
+            channels.put("channelid5", new SlackChannelImpl(SlackID.from("channelid5"), "testchannel5", "topicchannel5", "topicchannel5", false));
 
             users.put("userid1", new SlackUserImpl(SlackID.from("userid1"), "username1", "realname1", "userid1@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
             users.put("userid2", new SlackUserImpl(SlackID.from("userid2"), "username2", "realname2", "userid2@my.mail", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0)));
@@ -137,7 +137,7 @@ public class TestAbstractSlackSessionImpl {
         slackSession.connect();
 
         assertThat(slackSession.findChannelByName("testchannel1")).isNotNull();
-        assertThat(slackSession.findChannelByName("testchannel1").getId()).isEqualTo("channelid1");
+        assertThat(slackSession.findChannelByName("testchannel1").getId()).isEqualTo(SlackID.from("channelid1"));
     }
 
     @Test

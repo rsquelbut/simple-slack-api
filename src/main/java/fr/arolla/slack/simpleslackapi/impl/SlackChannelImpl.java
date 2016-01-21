@@ -1,6 +1,7 @@
 package fr.arolla.slack.simpleslackapi.impl;
 
 import fr.arolla.slack.simpleslackapi.SlackChannel;
+import fr.arolla.slack.simpleslackapi.SlackID;
 import fr.arolla.slack.simpleslackapi.SlackUser;
 
 import java.util.ArrayList;
@@ -10,13 +11,13 @@ import java.util.Set;
 
 class SlackChannelImpl implements SlackChannel {
     private final boolean direct;
-    private String id;
+    private SlackID id;
     private String name;
     private Set<SlackUser> members = new HashSet<>();
     private String topic;
     private String purpose;
 
-    SlackChannelImpl(String id, String name, String topic, String purpose, boolean direct) {
+    SlackChannelImpl(SlackID id, String name, String topic, String purpose, boolean direct) {
         this.id = id;
         this.name = name;
         this.topic = topic;
@@ -33,7 +34,7 @@ class SlackChannelImpl implements SlackChannel {
     }
 
     @Override
-    public String getId() {
+    public SlackID getId() {
         return id;
     }
 

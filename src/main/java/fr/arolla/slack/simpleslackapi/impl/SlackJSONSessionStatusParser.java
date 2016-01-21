@@ -84,7 +84,7 @@ class SlackJSONSessionStatusParser {
             JSONObject jsonChannel = (JSONObject) jsonObject;
             SlackChannelImpl channel = SlackJSONParsingUtils.buildSlackChannel(jsonChannel, users);
             LOGGER.debug("slack public channel found : " + channel.getId());
-            channels.put(channel.getId(), channel);
+            channels.put(channel.getId().value(), channel);
         }
 
         JSONArray groupsJson = (JSONArray) jsonResponse.get("groups");
@@ -93,7 +93,7 @@ class SlackJSONSessionStatusParser {
             JSONObject jsonChannel = (JSONObject) jsonObject;
             SlackChannelImpl channel = SlackJSONParsingUtils.buildSlackChannel(jsonChannel, users);
             LOGGER.debug("slack private group found : " + channel.getId());
-            channels.put(channel.getId(), channel);
+            channels.put(channel.getId().value(), channel);
         }
 
         JSONArray imsJson = (JSONArray) jsonResponse.get("ims");
@@ -102,7 +102,7 @@ class SlackJSONSessionStatusParser {
             JSONObject jsonChannel = (JSONObject) jsonObject;
             SlackChannelImpl channel = SlackJSONParsingUtils.buildSlackImChannel(jsonChannel, users);
             LOGGER.debug("slack im channel found : " + channel.getId());
-            channels.put(channel.getId(), channel);
+            channels.put(channel.getId().value(), channel);
         }
 
         JSONObject selfJson = (JSONObject) jsonResponse.get("self");

@@ -1,9 +1,6 @@
 package fr.arolla.slack.simpleslackapi.impl;
 
-import fr.arolla.slack.simpleslackapi.SlackChannel;
-import fr.arolla.slack.simpleslackapi.SlackFile;
-import fr.arolla.slack.simpleslackapi.SlackSession;
-import fr.arolla.slack.simpleslackapi.SlackUser;
+import fr.arolla.slack.simpleslackapi.*;
 import fr.arolla.slack.simpleslackapi.events.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -136,7 +133,7 @@ class SlackJSONMessageParser {
         if (channelId != null) {
             if (channelId.startsWith("D")) {
                 // direct messaging, on the fly channel creation
-                return new SlackChannelImpl(channelId, channelId, "", "", true);
+                return new SlackChannelImpl(SlackID.from(channelId), channelId, "", "", true);
             } else {
                 return slackSession.findChannelById(channelId);
             }
@@ -233,7 +230,7 @@ class SlackJSONMessageParser {
         String name = (String) channelJSONObject.get("name");
         String topic = (String) ((Map) channelJSONObject.get("topic")).get("value");
         String purpose = (String) ((Map) channelJSONObject.get("purpose")).get("value");
-        return new SlackChannelImpl(id, name, topic, purpose, true);
+        return new SlackChannelImpl(SlackID.from(id), name, topic, purpose, true);
     }
 
 

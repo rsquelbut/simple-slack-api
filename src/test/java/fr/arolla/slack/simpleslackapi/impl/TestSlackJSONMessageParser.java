@@ -50,14 +50,14 @@ public class TestSlackJSONMessageParser {
                 users.put(user2.getId().value(), user2);
                 users.put(user3.getId().value(), user3);
 
-                SlackChannel channel1 = new SlackChannelImpl("TESTCHANNEL1", "testchannel1", null, null, false);
-                SlackChannel channel2 = new SlackChannelImpl("TESTCHANNEL2", "testchannel2", null, null, false);
-                SlackChannel channel3 = new SlackChannelImpl("TESTCHANNEL3", "testchannel3", null, null, false);
-                SlackChannel channel4 = new SlackChannelImpl("NEWCHANNEL", "new channel", "To have something new", "This channel so new it aint even old yet", false);
-                channels.put(channel1.getId(), channel1);
-                channels.put(channel2.getId(), channel2);
-                channels.put(channel3.getId(), channel3);
-                channels.put(channel4.getId(), channel4);
+                SlackChannel channel1 = new SlackChannelImpl(SlackID.from("TESTCHANNEL1"), "testchannel1", null, null, false);
+                SlackChannel channel2 = new SlackChannelImpl(SlackID.from("TESTCHANNEL2"), "testchannel2", null, null, false);
+                SlackChannel channel3 = new SlackChannelImpl(SlackID.from("TESTCHANNEL3"), "testchannel3", null, null, false);
+                SlackChannel channel4 = new SlackChannelImpl(SlackID.from("NEWCHANNEL"), "new channel", "To have something new", "This channel so new it aint even old yet", false);
+                channels.put(channel1.getId().value(), channel1);
+                channels.put(channel2.getId().value(), channel2);
+                channels.put(channel3.getId().value(), channel3);
+                channels.put(channel4.getId().value(), channel4);
             }
 
             @Override
@@ -165,7 +165,7 @@ public class TestSlackJSONMessageParser {
         Assertions.assertThat(event).isInstanceOf(SlackMessagePosted.class);
         SlackMessagePosted slackMessage = (SlackMessagePosted) event;
         Assertions.assertThat(slackMessage.getSender().getId()).isEqualTo(SlackID.from("TESTUSER1"));
-        Assertions.assertThat(slackMessage.getChannel().getId()).isEqualTo("TESTCHANNEL1");
+        Assertions.assertThat(slackMessage.getChannel().getId()).isEqualTo(SlackID.from("TESTCHANNEL1"));
         Assertions.assertThat(slackMessage.getMessageContent()).isEqualTo("Test text 1");
         Assertions.assertThat(slackMessage.getTimeStamp()).isEqualTo("1413187521.000004");
     }
@@ -179,7 +179,7 @@ public class TestSlackJSONMessageParser {
         SlackMessageDeleted slackMessageDeleted = (SlackMessageDeleted) event;
         Assertions.assertThat(slackMessageDeleted.getMessageTimestamp()).isEqualTo("1358878749.000002");
         Assertions.assertThat(slackMessageDeleted.getTimeStamp()).isEqualTo("1413187521.000005");
-        Assertions.assertThat(slackMessageDeleted.getChannel().getId()).isEqualTo("TESTCHANNEL1");
+        Assertions.assertThat(slackMessageDeleted.getChannel().getId()).isEqualTo(SlackID.from("TESTCHANNEL1"));
     }
 
     @Test
@@ -191,7 +191,7 @@ public class TestSlackJSONMessageParser {
         SlackMessageUpdatedImpl slackMessageUpdated = (SlackMessageUpdatedImpl) event;
         Assertions.assertThat(slackMessageUpdated.getMessageTimestamp()).isEqualTo("1413187521.000005");
         Assertions.assertThat(slackMessageUpdated.getTimeStamp()).isEqualTo("1358878755.001234");
-        Assertions.assertThat(slackMessageUpdated.getChannel().getId()).isEqualTo("TESTCHANNEL1");
+        Assertions.assertThat(slackMessageUpdated.getChannel().getId()).isEqualTo(SlackID.from("TESTCHANNEL1"));
         Assertions.assertThat(slackMessageUpdated.getNewMessage()).isEqualTo("newtext");
     }
 
@@ -204,7 +204,7 @@ public class TestSlackJSONMessageParser {
         SlackChannelCreated slackChannelCreated = (SlackChannelCreated) event;
         Assertions.assertThat(slackChannelCreated.getCreator().getId()).isEqualTo(SlackID.from("TESTUSER1"));
         Assertions.assertThat(slackChannelCreated.getSlackChannel().getName()).isEqualTo("new channel");
-        Assertions.assertThat(slackChannelCreated.getSlackChannel().getId()).isEqualTo("NEWCHANNEL");
+        Assertions.assertThat(slackChannelCreated.getSlackChannel().getId()).isEqualTo(SlackID.from("NEWCHANNEL"));
         Assertions.assertThat(slackChannelCreated.getSlackChannel().getTopic()).isEqualTo("Catz Wid Hatz");
         Assertions.assertThat(slackChannelCreated.getSlackChannel().getPurpose()).isEqualTo("To post pictures of de Catz wid dem Hatz On");
     }
@@ -216,7 +216,7 @@ public class TestSlackJSONMessageParser {
         SlackEvent event = SlackJSONMessageParser.decode(session, object);
         Assertions.assertThat(event).isInstanceOf(SlackChannelDeleted.class);
         SlackChannelDeleted slackChannelDeleted = (SlackChannelDeleted) event;
-        Assertions.assertThat(slackChannelDeleted.getSlackChannel().getId()).isEqualTo("TESTCHANNEL1");
+        Assertions.assertThat(slackChannelDeleted.getSlackChannel().getId()).isEqualTo(SlackID.from("TESTCHANNEL1"));
     }
 
     @Test
@@ -226,7 +226,7 @@ public class TestSlackJSONMessageParser {
         SlackEvent event = SlackJSONMessageParser.decode(session, object);
         Assertions.assertThat(event).isInstanceOf(SlackChannelArchived.class);
         SlackChannelArchived slackChannelArchived = (SlackChannelArchived) event;
-        Assertions.assertThat(slackChannelArchived.getSlackChannel().getId()).isEqualTo("TESTCHANNEL1");
+        Assertions.assertThat(slackChannelArchived.getSlackChannel().getId()).isEqualTo(SlackID.from("TESTCHANNEL1"));
         Assertions.assertThat(slackChannelArchived.getUser().getId()).isEqualTo(SlackID.from("TESTUSER1"));
     }
 
@@ -237,7 +237,7 @@ public class TestSlackJSONMessageParser {
         SlackEvent event = SlackJSONMessageParser.decode(session, object);
         Assertions.assertThat(event).isInstanceOf(SlackChannelUnarchived.class);
         SlackChannelUnarchived slackChannelUnarchived = (SlackChannelUnarchived) event;
-        Assertions.assertThat(slackChannelUnarchived.getSlackChannel().getId()).isEqualTo("TESTCHANNEL1");
+        Assertions.assertThat(slackChannelUnarchived.getSlackChannel().getId()).isEqualTo(SlackID.from("TESTCHANNEL1"));
         Assertions.assertThat(slackChannelUnarchived.getUser().getId()).isEqualTo(SlackID.from("TESTUSER1"));
     }
 
@@ -248,7 +248,7 @@ public class TestSlackJSONMessageParser {
         SlackEvent event = SlackJSONMessageParser.decode(session, object);
         Assertions.assertThat(event).isInstanceOf(SlackGroupJoined.class);
         SlackGroupJoined slackGroupJoined = (SlackGroupJoined) event;
-        Assertions.assertThat(slackGroupJoined.getSlackChannel().getId()).isEqualTo("NEWCHANNEL");
+        Assertions.assertThat(slackGroupJoined.getSlackChannel().getId()).isEqualTo(SlackID.from("NEWCHANNEL"));
         Assertions.assertThat(slackGroupJoined.getSlackChannel().getName()).isEqualTo("new channel");
         Assertions.assertThat(slackGroupJoined.getSlackChannel().getTopic()).isEqualTo("To have something new");
         Assertions.assertThat(slackGroupJoined.getSlackChannel().getPurpose()).isEqualTo("This channel so new it aint even old yet");
@@ -280,7 +280,7 @@ public class TestSlackJSONMessageParser {
     }
 
     private void shouldValidateNewChannelsValues(SlackChannel channel) {
-        Assert.assertTrue(channel.getId().equals("NEWCHANNEL"));
+        Assert.assertTrue(channel.getId().equals(SlackID.from("NEWCHANNEL")));
         Assert.assertTrue(channel.getName().equals("new channel"));
         Assert.assertTrue(channel.getPurpose().equals("This channel so new it aint even old yet"));
         Assert.assertTrue(channel.getTopic().equals("To have something new"));

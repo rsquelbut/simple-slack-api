@@ -3,7 +3,7 @@ package fr.arolla.slack.simpleslackapi;
 import java.util.Collection;
 
 public interface SlackChannel {
-    String getId();
+    SlackID getId();
 
     String getName();
 
