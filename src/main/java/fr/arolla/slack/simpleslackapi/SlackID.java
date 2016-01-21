@@ -30,11 +30,11 @@ public class SlackID implements Serializable {
         return Objects.hash(value);
     }
 
-    public String getValue() {
+    public String value() {
         return value;
     }
 
     public String toString() {
-        return getValue();
+        return value();
     }
 }

@@ -433,7 +433,7 @@ class SlackWebSocketSessionImpl extends AbstractSlackSessionImpl implements Slac
         Map<String, String> arguments = new HashMap<>();
         arguments.put("token", authToken);
         arguments.put("channel", channel.getId());
-        arguments.put("user", user.getId().getValue());
+        arguments.put("user", user.getId().value());
         postSlackCommand(arguments, CHANNELS_INVITE_COMMAND, handle);
         return handle;
     }
@@ -453,7 +453,7 @@ class SlackWebSocketSessionImpl extends AbstractSlackSessionImpl implements Slac
         SlackMessageHandleImpl<SlackChannelReply> handle = new SlackMessageHandleImpl<SlackChannelReply>(getNextMessageId());
         Map<String, String> arguments = new HashMap<>();
         arguments.put("token", authToken);
-        arguments.put("user", user.getId().getValue());
+        arguments.put("user", user.getId().value());
         postSlackCommand(arguments, DIRECT_MESSAGE_OPEN_CHANNEL_COMMAND, handle);
         return handle;
     }
@@ -570,7 +570,7 @@ class SlackWebSocketSessionImpl extends AbstractSlackSessionImpl implements Slac
         HttpPost request = new HttpPost("https://slack.com/api/users.getPresence");
         List<NameValuePair> nameValuePairList = new ArrayList<>();
         nameValuePairList.add(new BasicNameValuePair("token", authToken));
-        nameValuePairList.add(new BasicNameValuePair("user", persona.getId().getValue()));
+        nameValuePairList.add(new BasicNameValuePair("user", persona.getId().value()));
         try {
             request.setEntity(new UrlEncodedFormEntity(nameValuePairList, "UTF-8"));
             HttpResponse response = client.execute(request);

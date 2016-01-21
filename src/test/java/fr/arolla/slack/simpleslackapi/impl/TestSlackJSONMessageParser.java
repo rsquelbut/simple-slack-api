@@ -46,9 +46,9 @@ public class TestSlackJSONMessageParser {
                 SlackUser user1 = new SlackUserImpl(SlackID.from("TESTUSER1"), "test user 1", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
                 SlackUser user2 = new SlackUserImpl(SlackID.from("TESTUSER2"), "test user 2", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
                 SlackUser user3 = new SlackUserImpl(SlackID.from("TESTUSER3"), "test user 3", "", "", false, false, false, false, false, false, false, "tz", "tzLabel", new Integer(0));
-                users.put(user1.getId().getValue(), user1);
-                users.put(user2.getId().getValue(), user2);
-                users.put(user3.getId().getValue(), user3);
+                users.put(user1.getId().value(), user1);
+                users.put(user2.getId().value(), user2);
+                users.put(user3.getId().value(), user3);
 
                 SlackChannel channel1 = new SlackChannelImpl("TESTCHANNEL1", "testchannel1", null, null, false);
                 SlackChannel channel2 = new SlackChannelImpl("TESTCHANNEL2", "testchannel2", null, null, false);
