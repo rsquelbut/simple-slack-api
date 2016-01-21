@@ -1,3 +1,4 @@
+![Etat du build](https://travis-ci.org/rsquelbut/simple-slack-api.svg?branch=master)
 # Simple Slack API
 
 This library allows an aplication to connect to [Slack](http://www.slack.com/) to receive and send messages from any channel as if it were a slack client. 
