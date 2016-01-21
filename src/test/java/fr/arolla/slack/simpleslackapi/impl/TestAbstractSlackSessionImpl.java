@@ -169,25 +169,6 @@ public class TestAbstractSlackSessionImpl {
     }
 
     @Test
-    public void testFindBotById_ExistingBot() {
-        TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
-
-        slackSession.connect();
-
-        assertThat(slackSession.findBotById("botid1")).isNotNull();
-        assertThat(slackSession.findBotById("botid1").getUserName()).isEqualTo("botname1");
-    }
-
-    @Test
-    public void testFindBotById_MissingBot() {
-        TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
-
-        slackSession.connect();
-
-        assertThat(slackSession.findBotById("unknownbot")).isNull();
-    }
-
-    @Test
     public void testFindUserById_ExistingBot() {
         TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
 
@@ -195,15 +176,6 @@ public class TestAbstractSlackSessionImpl {
 
         assertThat(slackSession.findUserById("userid1")).isNotNull();
         assertThat(slackSession.findUserById("userid1").getUserName()).isEqualTo("username1");
-    }
-
-    @Test
-    public void testFindUserById_MissingBot() {
-        TestSlackSessionImpl slackSession = new TestSlackSessionImpl();
-
-        slackSession.connect();
-
-        assertThat(slackSession.findBotById("unknownuser")).isNull();
     }
 
     @Test

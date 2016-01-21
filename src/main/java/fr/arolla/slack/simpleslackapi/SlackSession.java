@@ -17,8 +17,6 @@ public interface SlackSession {
 
     Collection<SlackUser> getUsers();
 
-    Collection<SlackBot> getBots();
-
     SlackChannel findChannelByName(String channelName);
 
     SlackChannel findChannelById(String channelId);
@@ -30,10 +28,6 @@ public interface SlackSession {
     SlackUser findUserByEmail(String userMail);
 
     SlackPersona sessionPersona();
-
-    @Deprecated
-    SlackBot findBotById(String botId);
-
 
     SlackMessageHandle<GenericSlackReply> inviteUser(String email, String firstName, boolean setActive);
 

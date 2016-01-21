@@ -1,4 +1,4 @@
 package fr.arolla.slack.simpleslackapi;
 
-public interface SlackUser extends SlackPersona, SlackBot {
+public interface SlackUser extends SlackPersona {
 }

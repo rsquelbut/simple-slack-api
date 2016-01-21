@@ -161,7 +161,7 @@ class SlackJSONMessageParser {
         String text = (String) obj.get("text");
         String botId = (String) obj.get("bot_id");
         SlackUser user = slackSession.findUserById(botId);
-        return new SlackMessagePostedImpl(text, user, user, channel, ts);
+        return new SlackMessagePostedImpl(text, user, channel, ts);
     }
 
     private static SlackMessagePostedImpl parseMessagePublished(JSONObject obj, SlackChannel channel, String ts, SlackSession slackSession) {
@@ -169,7 +169,7 @@ class SlackJSONMessageParser {
         String userId = (String) obj.get("user");
         SlackUser user = slackSession.findUserById(userId);
         Map<String, Integer> reacs = extractReactionsFromMessageJSON(obj);
-        SlackMessagePostedImpl message = new SlackMessagePostedImpl(text, user, user, channel, ts);
+        SlackMessagePostedImpl message = new SlackMessagePostedImpl(text, user, channel, ts);
         message.setReactions(reacs);
         return message;
     }
@@ -225,7 +225,7 @@ class SlackJSONMessageParser {
 
         SlackUser user = slackSession.findUserById(userId);
 
-        return new SlackMessagePostedImpl(text, user, user, channel, ts, file, obj);
+        return new SlackMessagePostedImpl(text, user, channel, ts, file, obj);
     }
 
     private static SlackChannel parseChannelDescription(JSONObject channelJSONObject) {
