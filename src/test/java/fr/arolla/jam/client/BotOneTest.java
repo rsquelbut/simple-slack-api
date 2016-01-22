@@ -1,6 +1,11 @@
 package fr.arolla.jam.client;
 
+import static fr.arolla.jam.client.SlackReplyHelper.slackReplyHelper;
+
+import fr.arolla.jam.bus.simpleslackapi.events.SlackConnected;
+import fr.arolla.jam.bus.simpleslackapi.events.SlackMessagePosted;
 import fr.arolla.jam.bus.simpleslackapi.impl.SlackSessionFactory;
+import fr.arolla.jam.bus.simpleslackapi.listeners.SlackConnectedListener;
 import fr.arolla.jam.bus.simpleslackapi.replies.SlackMessageReply;
 import fr.arolla.jam.bus.simpleslackapi.SlackChannel;
 import fr.arolla.jam.bus.simpleslackapi.SlackMessageHandle;
@@ -35,11 +40,10 @@ public class BotOneTest {
 
 	private SlackMessagePostedListener createMessagePostedListener() {
 		return (event, session1) -> {
-			if (event.getSender().getId().equals(session1.sessionPersona().getId())) { return; }
+			if (itSMeWhoSentMessage(event, session1)) { return; }
 
 			//let's send a message
 			final SlackChannel responseChannel = event.getChannel();
-			session1.joinChannel(responseChannel.getName());
 			final SlackMessageHandle response = session1.sendMessage( //
 					responseChannel, //
 					event.getMessageContent(), //
@@ -52,7 +56,7 @@ public class BotOneTest {
 
 			//2 secs later, let's update the message (I can only update my own messages)
 			final SlackMessageHandle updated = session1.updateMessage( //
-					timestamp(response.getReply()), //
+					slackReplyHelper().timestamp(response.getReply()), //
 					responseChannel, //
 					event.getMessageContent() + " UPDATED" //
 			);
@@ -64,20 +68,14 @@ public class BotOneTest {
 			}
 			//2 secs later, let's now delete the message (I can only delete my own messages)
 			session1.deleteMessage( //
-					timestamp(response.getReply()), //
+					slackReplyHelper().timestamp(response.getReply()), //
 					responseChannel);
+			session1.getPresence(session1.sessionPersona());
 
 		};
 	}
 
-	private String timestamp(final SlackReply reply) {
-		if (reply instanceof GenericSlackReply) {
-			return timestamp((GenericSlackReply) reply);
-		}
-		throw new IllegalArgumentException(reply + " is not a " + GenericSlackReply.class);
-	}
-
-	private String timestamp(final GenericSlackReply reply) {
-		return (String) reply.getPlainAnswer().get("ts");
+	public boolean itSMeWhoSentMessage(final SlackMessagePosted event, final SlackSession session1) {
+		return event.getSender().getId().equals(session1.sessionPersona().getId());
 	}
 }
