@@ -15,4 +15,8 @@ class GenericSlackReplyImpl implements GenericSlackReply {
         return obj;
     }
 
+    public String toString() {
+		return this.getClass().getSimpleName()+":"+obj.toJSONString();
+	}
+
 }
