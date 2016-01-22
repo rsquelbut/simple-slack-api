@@ -7,7 +7,6 @@ import fr.arolla.jam.bus.simpleslackapi.SlackChannel;
 import fr.arolla.jam.bus.simpleslackapi.SlackID;
 import fr.arolla.jam.bus.simpleslackapi.SlackMessageHandle;
 import fr.arolla.jam.bus.simpleslackapi.SlackSession;
-import fr.arolla.jam.simpleslackapi.*;
 import fr.arolla.jam.bus.simpleslackapi.events.SlackConnected;
 import fr.arolla.jam.bus.simpleslackapi.listeners.SlackConnectedListener;
 import fr.arolla.jam.bus.simpleslackapi.replies.GenericSlackReply;

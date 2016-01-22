@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import fr.arolla.jam.bus.simpleslackapi.SlackSession;
 import fr.arolla.jam.bus.simpleslackapi.replies.SlackChannelReply;
+import fr.arolla.jam.bus.simpleslackapi.replies.SlackMessageReply;
 import fr.arolla.jam.bus.simpleslackapi.replies.SlackReply;
 
 class SlackJSONReplyParser {

@@ -1,11 +1,13 @@
-package fr.arolla.jam.bus.simpleslackapi.impl;
+package fr.arolla.jam.client;
 
+import fr.arolla.jam.bus.simpleslackapi.impl.SlackSessionFactory;
 import fr.arolla.jam.bus.simpleslackapi.replies.SlackMessageReply;
 import fr.arolla.jam.bus.simpleslackapi.SlackChannel;
 import fr.arolla.jam.bus.simpleslackapi.SlackMessageHandle;
 import fr.arolla.jam.bus.simpleslackapi.SlackSession;
 import fr.arolla.jam.bus.simpleslackapi.listeners.SlackMessagePostedListener;
 import fr.arolla.jam.bus.simpleslackapi.replies.GenericSlackReply;
+import fr.arolla.jam.bus.simpleslackapi.replies.SlackReply;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,20 +37,13 @@ public class BotOneTest {
 		return (event, session1) -> {
 			if (event.getSender().getId().equals(session1.sessionPersona().getId())) { return; }
 
-			LOGGER.warn("Detect a message : \"" + event.getMessageContent() + "\" from " + event.getSender().getUserName());
 			//let's send a message
-			final SlackChannel generalChannel = session1.findChannelByName("general");
-			session1.joinChannel(generalChannel.getName());
-			LOGGER.warn("Found channel : " + generalChannel);
-//			session1.leaveChannel(generalChannel);
-			final SlackMessageHandle handle = session1.sendMessage( //
-					generalChannel, //
+			final SlackChannel responseChannel = event.getChannel();
+			session1.joinChannel(responseChannel.getName());
+			final SlackMessageHandle response = session1.sendMessage( //
+					responseChannel, //
 					event.getMessageContent(), //
 					null);
-			LOGGER.warn("Sent message : " + handle.getReply());
-			 GenericSlackReply reply = (GenericSlackReply) handle.getReply();
-			LOGGER.warn("Reply : "+reply.getPlainAnswer().toJSONString());
-			String ts = (String)reply.getPlainAnswer().get("ts");
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
@@ -57,26 +52,32 @@ public class BotOneTest {
 
 			//2 secs later, let's update the message (I can only update my own messages)
 			final SlackMessageHandle updated = session1.updateMessage( //
-					ts, //
-					generalChannel, //
+					timestamp(response.getReply()), //
+					responseChannel, //
 					event.getMessageContent() + " UPDATED" //
 			);
-
-			LOGGER.warn("Updated message : " + updated.getReply());
 
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				LOGGER.error("error when sleeping", e);
 			}
-			 reply = (GenericSlackReply) handle.getReply();
-			ts = (String)reply.getPlainAnswer().get("ts");
 			//2 secs later, let's now delete the message (I can only delete my own messages)
-			final SlackMessageHandle<SlackMessageReply> deleted = session1.deleteMessage( //
-					ts, //
-					generalChannel);
+			session1.deleteMessage( //
+					timestamp(response.getReply()), //
+					responseChannel);
 
-			LOGGER.warn("Deleted message : " + deleted.getReply());
 		};
+	}
+
+	private String timestamp(final SlackReply reply) {
+		if (reply instanceof GenericSlackReply) {
+			return timestamp((GenericSlackReply) reply);
+		}
+		throw new IllegalArgumentException(reply + " is not a " + GenericSlackReply.class);
+	}
+
+	private String timestamp(final GenericSlackReply reply) {
+		return (String) reply.getPlainAnswer().get("ts");
 	}
 }

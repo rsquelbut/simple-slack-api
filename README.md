@@ -69,51 +69,65 @@ SlackMessageHandle addReactionToMessage(SlackChannel channel, String messageTime
 
 Here's a full example with an echoing bot using this library :
 ```java
-public class Example
-{
+	public static void main(String[] args) {
+		final SlackSession session = SlackSessionFactory.createWebSocketSlackSession(BOTONE_TOKEN);
 
-  public static void main(String[] args) throws Exception
-  {
+		session.addMessagePostedListener(createMessagePostedListener());
+		session.connect();
 
-    final SlackSession session = SlackSessionFactory.
-      createWebSocketSlackSession("authenticationtoken", Proxy.Type.HTTP, "myproxy", 1234, true);
-    session.addMessagePostedListener(new SlackMessagePostedListener()
-    {
-        @Override
-        public void onEvent(SlackMessagePosted event, SlackSession session)
-        {
-          //let's send a message
-          SlackMessageHandle handle = session.sendMessage(session.getChannel(),
-                              event.getMessageContent(), null);
-          try
-          {
-              Thread.sleep(2000);
-          } catch (InterruptedException e)
-          {
-              e.printStackTrace();
-          }
-          //2 secs later, let's update the message (I can only update my own messages)
-          session.updateMessage(handle.getSlackReply().getTimestamp(),session.getChannel(),
-                                event.getMessageContent()+" UPDATED");
-          try
-          {
-              Thread.sleep(2000);
-          } catch (InterruptedException e)
-          {
-              e.printStackTrace();
-          }
-          //2 secs later, let's now delete the message (I can only delete my own messages)
-          session.deleteMessage(handle.getSlackReply().getTimestamp(),session.getChannel())
-        }
-      });
-    session.connect();
+		while (true) {
+			Thread.sleep(1000);
+		}
+	}
+	
+	private SlackMessagePostedListener createMessagePostedListener() {
+		return (event, session1) -> {
+			if (event.getSender().getId().equals(session1.sessionPersona().getId())) { return; }
 
-    while (true)
-    {
-      Thread.sleep(1000);
-    }
-  }
-}
+			//let's send a message
+			final SlackChannel responseChannel = event.getChannel();
+			session1.joinChannel(responseChannel.getName());
+			final SlackMessageHandle response = session1.sendMessage( 
+					responseChannel, 
+					event.getMessageContent(), 
+					null);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				LOGGER.error("error when sleeping", e);
+			}
+
+			//2 secs later, let's update the message (I can only update my own messages)
+			final SlackMessageHandle updated = session1.updateMessage( 
+					timestamp(response.getReply()), 
+					responseChannel, 
+					event.getMessageContent() + " UPDATED" 
+			);
+
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				LOGGER.error("error when sleeping", e);
+			}
+			//2 secs later, let's now delete the message (I can only delete my own messages)
+			session1.deleteMessage( 
+					timestamp(response.getReply()), 
+					responseChannel);
+
+		};
+	}
+
+	private String timestamp(final SlackReply reply) {
+		if (reply instanceof GenericSlackReply) {
+			return timestamp((GenericSlackReply) reply);
+		}
+		throw new IllegalArgumentException(reply + " is not a " + GenericSlackReply.class);
+	}
+
+	private String timestamp(final GenericSlackReply reply) {
+		return (String) reply.getPlainAnswer().get("ts");
+	}
+}	
 ```        
 
 ## Features
