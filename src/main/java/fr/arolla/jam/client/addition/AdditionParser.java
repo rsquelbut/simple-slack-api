@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.arolla.jam.client.BotOneTest;
-
 /**
  * Created by raphael_squelbut on 22/01/16.
  */
