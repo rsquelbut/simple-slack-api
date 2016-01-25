@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by raphael_squelbut on 22/01/16.
  */
-public class AdditionParser {
+class AdditionParser {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdditionParser.class);
 	private static final Pattern ADDITION_PATTERN = Pattern.compile("ADD +([A-Z_]+) +([0-9]+) +([0-9]+)");
 
