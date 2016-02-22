@@ -17,9 +17,10 @@ public class BotAdditioner {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BotAdditioner.class);
 	private static final String BOTONE_TOKEN = "xoxb-19108991843-8XmlhYZSQxvOkbOUnmkkhFoi";
 
-	@Test public void should_create_BotAddition_which_compute_an_addition()
+	@Test
+	public void should_create_BotAddition_which_compute_an_addition()
 			throws IOException, InterruptedException {
-		SlackBot.create()
+		JamBot.create()
 				.withToken(BOTONE_TOKEN)
 				.listenTo("random")
 				.acceptAccordingTo(Addition::accept)
