@@ -21,9 +21,9 @@ class AdditionParser {
 		final Matcher matcher = ADDITION_PATTERN.matcher(input);
 		final Addition.Builder additionBuilder = Addition.newAddition();
 		if (matcher.find()) {
-			additionBuilder.variable(matcher.group(1));
-			additionBuilder.a(Integer.valueOf(matcher.group(2)));
-			additionBuilder.b(Integer.valueOf(matcher.group(3)));
+			additionBuilder.willAdd(matcher.group(2))
+					.to(matcher.group(3))
+					.in(matcher.group(1));
 		}
 		final Addition addition = additionBuilder.build();
 		return addition;

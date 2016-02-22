@@ -1,7 +1,5 @@
 package fr.arolla.jam.client.addition;
 
-import static org.junit.Assert.*;
-
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +40,7 @@ public class AdditionParserTest {
 	@Test
 	public void should_build_an_addition() {
 		// GIVEN
-		final Addition expected = Addition.newAddition().variable("VAR").a(32).b(11).build();
+		final Addition expected = Addition.newAddition().in("VAR").willAdd(32).to(11).build();
 
 		// WHEN
 		final Addition actual = sut.build("ADD VAR 32 11");

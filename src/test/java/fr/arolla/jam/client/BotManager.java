@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 @Ignore
 public class BotManager {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BotOneTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BotManager.class);
 	private static final String BOTMANAGER_TOKEN = "xoxb-19249860497-Pw2hdd7nPfkPTlRCaVrlqlW3";
 
 	@Test

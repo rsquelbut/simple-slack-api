@@ -20,6 +20,10 @@ public class Addition {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
+    public static String compute(String input) {
+        return parse(input).result();
+    }
+
     public static boolean accept(String input) {
         return parser.accept(input);
     }
@@ -75,18 +79,26 @@ public class Addition {
             return new Addition(this);
         }
 
-        public Builder variable(String variable) {
+        public Builder in(String variable) {
             this.variable = variable;
             return this;
         }
 
-        public Builder a(Integer a) {
+        public Builder willAdd(Integer a) {
             this.a = a;
             return this;
         }
+        public Builder willAdd(String a) {
+            this.a = Integer.valueOf(a);
+            return this;
+        }
 
-        public Builder b(Integer b) {
+        public Builder to(Integer b) {
             this.b = b;
+            return this;
+        }
+        public Builder to(String b) {
+            this.b = Integer.valueOf(b);
             return this;
         }
     }
