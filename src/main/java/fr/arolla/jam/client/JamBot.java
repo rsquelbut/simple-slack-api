@@ -86,7 +86,6 @@ public abstract class JamBot {
 				session
 				.joinChannel(channelToJoin);
 		LOGGER.debug("Can join " + channelToJoin + " : " + channelJoinedReply);
-		channelJoinedReply.getReply()
 		while (true) {
 			Thread.sleep(1000);
 		}
