@@ -1,5 +1,7 @@
 package fr.arolla.jam.client.ullink;
 
+import fr.arolla.jam.client.Token;
+
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -65,4 +67,8 @@ public class JamBotBuilder {
 		return this;
 	}
 
+	public JamBotBuilder withToken(Token bot) {
+		this.token = bot.get();
+		return this;
+	}
 }

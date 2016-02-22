@@ -1,8 +1,8 @@
-package fr.arolla.jam.client;
+package fr.arolla.jam.client.ullink;
 
 import java.io.IOException;
 
-import fr.arolla.jam.client.ullink.JamBot;
+import fr.arolla.jam.client.Token;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -16,13 +16,12 @@ import fr.arolla.jam.client.operation.addition.Addition;
 @Ignore
 public class BotAdditioner {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BotAdditioner.class);
-	private static final String BOTONE_TOKEN = "xoxb-19108991843-8XmlhYZSQxvOkbOUnmkkhFoi";
 
 	@Test
 	public void should_create_BotAddition_which_compute_an_addition()
 			throws IOException, InterruptedException {
 		JamBot.create()
-				.withToken(BOTONE_TOKEN)
+				.withToken(Token.BOT1)
 				.listenTo("random")
 				.acceptAccordingTo(Addition::accept)
 				.transformWith(Addition::compute)

@@ -10,7 +10,7 @@
 		<dependency>
 			<groupId>com.github.flowctrl</groupId>
 			<artifactId>slack-api</artifactId>
-			<version>v1.0.14.RELEASE</version>
+			<version>v1.1.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.Ullink</groupId>
