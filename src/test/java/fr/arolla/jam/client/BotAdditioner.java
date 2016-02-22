@@ -2,12 +2,13 @@ package fr.arolla.jam.client;
 
 import java.io.IOException;
 
+import fr.arolla.jam.client.ullink.JamBot;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.arolla.jam.client.addition.Addition;
+import fr.arolla.jam.client.operation.addition.Addition;
 
 /**
  * Created by raphael_squelbut on 22/01/16.

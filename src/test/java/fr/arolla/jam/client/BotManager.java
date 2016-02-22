@@ -2,6 +2,7 @@ package fr.arolla.jam.client;
 
 import java.io.IOException;
 
+import fr.arolla.jam.client.ullink.JamBot;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
